@@ -1,38 +1,57 @@
+/*
+ * Name: Jade Stewart
+ * Course: CSC320
+ * Assignment: Module 3 Critical Thinking, Option #1
+ * Date: October 1, 2026
+ *
+ * Description: Prompts the user for their weekly income and calculates
+ * the weekly tax withholding based on the following brackets:
+ *   Less than $500:              10%
+ *   $500 to less than $1500:     15%
+ *   $1500 to less than $2500:    20%
+ *   $2500 or more:               30%
+ */
+
 import java.util.Scanner;
 
 public class Main {
 
-  public static void main(String [] args){
-    String income;
-    double taxRate = 0.0;
-    double weeklyTax; 
-    double intIncome;
+  public static void main(String[] args) {
+    String incomeInput;
+    double weeklyIncome;
+    double taxRate;
+    double weeklyTax;
     Scanner scnr = new Scanner(System.in);
 
+    // Get the weekly income from the user
     System.out.println("Please enter your income for the week in dollars and cents: ");
-    income = scnr.nextLine().trim();
+    incomeInput = scnr.nextLine().trim();
+    scnr.close();
+
+    // Convert input to a number, exit if the input is not numeric
     try {
-        intIncome = Double.parseDouble(income);
-    } catch (NumberFormatException e){
-        System.out.println("Error: please ensure you enter a numeric value");
-        scnr.close();
-        return;
+      weeklyIncome = Double.parseDouble(incomeInput);
+    } catch (NumberFormatException e) {
+      System.out.println("Error: please ensure you enter a numeric value");
+      return;
     }
 
-    if(intIncome <= 0){
+    // Determine the tax rate based on the income bracket
+    if (weeklyIncome <= 0) {
       System.out.println("Income must be greater than 0 to compute tax");
       return;
-    } else if(intIncome < 500) {
-      taxRate =  0.10;
-    } else if(intIncome >= 500 && intIncome < 1500){
+    } else if (weeklyIncome < 500) {
+      taxRate = 0.10;
+    } else if (weeklyIncome >= 500 && weeklyIncome < 1500) {
       taxRate = 0.15;
-    } else if(intIncome >= 1500 && intIncome < 2500){
+    } else if (weeklyIncome >= 1500 && weeklyIncome < 2500) {
       taxRate = 0.20;
-    } else{
+    } else {
       taxRate = 0.30;
     }
 
-    weeklyTax = intIncome * taxRate;
-    System.out.println("Your weekly tax amount is: " + weeklyTax);
+    // Calculate and display the weekly tax withholding
+    weeklyTax = weeklyIncome * taxRate;
+    System.out.printf("Your weekly tax amount is: $%.2f%n", weeklyTax);
   }
 }
